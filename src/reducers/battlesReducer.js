@@ -1,6 +1,9 @@
 
 const initialState = {
-  battle: {}
+  battle: {},
+  locations: [],
+  kings: [],
+  types: []
 };
 const BattlesReducer = (state = initialState, action) => {
   switch (action.type) {
