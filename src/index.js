@@ -3,10 +3,27 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Layout from './Layout.js';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import BattlesReducer from './reducers/battlesReducer';
+import logger from 'redux-logger';
+import * as actions from './actions/actions.js';
 
+
+const middlewares = [thunk, logger];
+const store = createStore(BattlesReducer, applyMiddleware(...middlewares));
+store.dispatch(actions.fetchLocations());
+store.dispatch(actions.fetchKings());
+store.dispatch(actions.fetchTypes());
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Layout>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Layout>
   </React.StrictMode>,
   document.getElementById('root')
 );
