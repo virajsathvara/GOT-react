@@ -8,11 +8,14 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import BattlesReducer from './reducers/battlesReducer';
-import logger from 'redux-logger';
 import * as actions from './actions/actions.js';
 
+const middlewares = [thunk];
+if (process.env.NODE_ENV === `development`) {
+  const { logger } = require(`redux-logger`);
 
-const middlewares = [thunk, logger];
+  middlewares.push(logger);
+}
 const store = createStore(BattlesReducer, applyMiddleware(...middlewares));
 store.dispatch(actions.fetchLocations());
 store.dispatch(actions.fetchKings());
