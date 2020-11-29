@@ -12,6 +12,7 @@ function App() {
   const locations = useSelector(state => state.locations);
   const kings = useSelector(state => state.kings);
   const types = useSelector(state => state.types);
+  const error = useSelector(state => state.error);
   const dispatch = useDispatch();
 
   const onChange = (e) => {
@@ -39,13 +40,11 @@ function App() {
       search_string += `location=${location}&`;
     if (type)
       search_string += `type=${type}`;
-    console.log('search is: ', search_string);
     return search_string;
   };
 
   const onSearch = (e) => {
     e.preventDefault();
-    console.log(kingsname, location, type);
     const search_string = createSearchData();
     dispatch(actions.fetchbattle(`https://protected-lake-39683.herokuapp.com/battles/search?${search_string}`));
   };
@@ -149,8 +148,8 @@ function App() {
               <div className="row">
                 <div className="col-lg-8 col-md-12 pb-4">
                   <h4 className="mbr-section-subtitle mbr-fonts-style align-left pb-3 display-7">
-                    Search your battles easily</h4>
-                  <h3 className="mbr-section-title mbr-fonts-style align-left mb-4 display-2"><strong>In case of multiple battles, first one will be shown.</strong></h3>
+                    {error ? "Error occured while loading data" : "Search your battles easily"}</h4>
+                  <h3 className="mbr-section-title mbr-fonts-style align-left mb-4 display-2"><strong>{error ? error.message : "In case of multiple battles, first one will be shown."}</strong></h3>
                 </div>
               </div>
             </div>

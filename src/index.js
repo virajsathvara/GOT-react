@@ -9,13 +9,8 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import BattlesReducer from './reducers/battlesReducer';
 import * as actions from './actions/actions.js';
-import { createLogger } from 'redux-logger';
 
-const logger = createLogger({
-  predicate: () => process.env.NODE_ENV !== 'production'
-});
-
-const middlewares = [thunk, logger];
+const middlewares = [thunk];
 const store = createStore(BattlesReducer, applyMiddleware(...middlewares));
 store.dispatch(actions.fetchLocations());
 store.dispatch(actions.fetchKings());

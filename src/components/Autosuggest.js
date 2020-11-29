@@ -23,6 +23,7 @@ export default class AutoSuggestInput extends React.Component {
   onInputChange(event) {
     const input = event.target.value;
     this.setState({ value: input, showOption: true, suggestions: this.getSuggestions(input) });
+    this.props.onChange({ name: this.props.name, value: input });
   }
 
   getSuggestions(input) {
